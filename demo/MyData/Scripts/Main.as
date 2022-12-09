@@ -10,7 +10,7 @@ void Start()
 
     scene_ = Scene();
     scene_.CreateComponent("Octree");
-    
+
     Node@ zoneNode = scene_.CreateChild();
     Zone@ zone = zoneNode.CreateComponent("Zone");
     zone.boundingBox = BoundingBox(-1000.0f, 1000.0f);
@@ -27,7 +27,7 @@ void Start()
     light.castShadows = true;
     light.shadowCascade = CascadeParameters(10.0f, 20.0f, 30.0f, 40.0f, 0.8f);
     light.shadowBias = BiasParameters(0.0f, 0.01f, 0.01f);
-    
+
     cameraNode = scene_.CreateChild();
     cameraNode.position = Vector3(-2.0f, 2.0f, -5.0f);
     cameraNode.LookAt(Vector3(0.0f, 1.0f, 0.0f));
@@ -46,7 +46,7 @@ void Start()
     StaticModel@ wallObject = wallNode.CreateComponent("StaticModel");
     wallObject.model = cache.GetResource("Model", "Models/Box.mdl");
     wallObject.castShadows = true;
-    
+
     Node@ characterNode = scene_.CreateChild();
     characterNode.position = Vector3(0.0f, 0.0f, 2.0f);
     AnimatedModel@ characterObject = characterNode.CreateComponent("AnimatedModel");
@@ -67,7 +67,7 @@ void Start()
 void HandleUpdate(StringHash eventType, VariantMap& eventData)
 {
     float timeStep = eventData["TimeStep"].GetFloat();
-    
+
     const float MOVE_SPEED = 20.0f;
     const float MOUSE_SENSITIVITY = 0.1f;
 
