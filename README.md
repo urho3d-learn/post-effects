@@ -4,6 +4,8 @@
 
 # Постэффекты (WIP)
 
+![](images/screen.png)
+
 ---
 
 *Старая версия демки: <https://github.com/1vanK/Urho3DHabrahabr06>.*
