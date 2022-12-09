@@ -1,6 +1,10 @@
+*Данный урок является продолжением урока [Материалы](https://github.com/urho3d-learn/materials). Если вы с ним ещё не ознакомились, то начните с него.*
+
+---
+
 # Постэффекты (WIP)
 
 ---
 
-*Старая версия урока: <https://github.com/1vanK/Urho3DHabrahabr06>.*
+*Старая версия демки: <https://github.com/1vanK/Urho3DHabrahabr06>.*
 
