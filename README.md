@@ -54,6 +54,22 @@
 * Использовать функцию `Viewport::SetRenderPath()` **после** создания вьюпорта.
 * В редакторе рендерпас можно указать в окне `View` > `Editor Settings`.
 
+Рендерпасы можно не только загружать из файлов, но и динамически изменять в процессе работы приложения. Например, когда вы применяете какой-нибудь постэффект из папки `Data/PostProcess`, происходит ни что иное, как **добавление** команд в текущий рендерпас. Иными словами вы можете просто скопировать содержимое какого-то файла (или файлов) из `Data/PostProcess` в конец какого-то файла из `CoreData/RenderPaths`.
+
+[Main.as](demo/MyData/Scripts/Main.as):
+
+```
+void Start()
+{
+    ...
+    renderer.SetDefaultRenderPath(cache.GetResource("XMLFile", "RenderPaths/MyForward.xml"));
+    Viewport@ viewport = Viewport(scene_, cameraNode.GetComponent("Camera"));
+    viewport.renderPath.Append(cache.GetResource("XMLFile", "PostProcess/FXAA3.xml"));
+    renderer.viewports[0] = viewport;
+}
+```
+
+Здесь происходит загрузка рендерпаса [MyForward.xml](demo/MyData/RenderPaths/MyForward.xml) (который основан на [Forward.xml](demo/CoreData/RenderPaths/Forward.xml)), а затем к нему добавляется эффект полноэкранного сглаживания [FXAA3.xml](demo/Data/PostProcess/FXAA3.xml).
 
 ---
 
