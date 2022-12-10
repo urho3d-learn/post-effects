@@ -78,6 +78,7 @@ void Start()
 Рендератергеты — это, грубо говоря, текстуры, которые можно передавать в команды как входные данные, либо наоборот, команды могут выводить результат своей работы в них.
 
 [RenderPaths/MyForward.xml](demo/MyData/RenderPaths/MyForward.xml):
+
 ```
 <renderpath>
     <rendertarget name="visiblemask" tag="WallHack" sizedivisor="1 1" format="a" />
@@ -115,6 +116,7 @@ void HandleUpdate(StringHash eventType, VariantMap& eventData)
 
 
 [RenderPaths/MyForward.xml](demo/MyData/RenderPaths/MyForward.xml):
+
 ```
 <renderpath>
     ...
@@ -133,6 +135,7 @@ void HandleUpdate(StringHash eventType, VariantMap& eventData)
 Это те самые проходы рендера, которые были упомянуты в [прошлом уроке](https://github.com/urho3d-learn/materials).
 
 [RenderPaths/MyForward.xml](demo/MyData/RenderPaths/MyForward.xml):
+
 ```
 <renderpath>
     ...
@@ -163,6 +166,7 @@ void HandleUpdate(StringHash eventType, VariantMap& eventData)
 Именно эта команда и выводит закрывающий экран прямоугольный полигон, предназначенный для реализации постэффектов (так называемый screen quad).
 
 [RenderPaths/MyForward.xml](demo/MyData/RenderPaths/MyForward.xml):
+
 ```
 <renderpath>
     ...
