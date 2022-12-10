@@ -178,6 +178,58 @@ void HandleUpdate(StringHash eventType, VariantMap& eventData)
 </renderpath>
 ```
 
+Здесь для отрисовки квада используется шейдер WallHack, и на вход этого шейдера передаются 3 текстуры (viewport — отрендеренная сцена, fullmask — полная маска персонажа и visiblemask — маска видимой части персонажа). Пусть вас не путают названия текстурных юнитов (diffuse, normal и specular). Вы вольны передавать через них что угодно, и использовать в своих шейдерах как угодно.
+
+Шейдер [WallHack](demo/MyData/Shaders/GLSL/WallHack.glsl) очень прост.
+
+1) Получаем цвет текселя отрендеренной сцены (напомню, что мы в [рендерпасе](demo/MyData/RenderPaths/MyForward.xml) передали рендер сцены через текстурный юнит diffuse):
+
+[GLSL/WallHack.glsl](demo/MyData/Shaders/GLSL/WallHack.glsl):
+
+```
+void PS()
+{
+    vec3 viewport = texture2D(sDiffMap, vTexCoord).rgb;
+    ...
+}
+```
+
+2) Получаем обе маски:
+
+
+[GLSL/WallHack.glsl](demo/MyData/Shaders/GLSL/WallHack.glsl):
+
+```
+void PS()
+{
+    ...
+    #ifdef GL3
+        float fullmask = texture2D(sNormalMap, vTexCoord).r;
+        float visiblemask = texture2D(sSpecMap, vTexCoord).r;
+    #else
+        float fullmask = texture2D(sNormalMap, vTexCoord).a;
+        float visiblemask = texture2D(sSpecMap, vTexCoord).a;
+    #endif
+    ...
+}
+```
+
+Возвращаясь к упомянутому выше нюансу, мы видим, что в зависимости от версии OpenGL при работе с одноканальной текстурой мы используем разные каналы.
+
+<details>
+<summary><b>Source/Urho3D/Graphics/OpenGL/OGLGraphics.cpp</b></summary>
+<pre><code>unsigned Graphics::GetAlphaFormat()
+{
+#ifndef GL_ES_VERSION_2_0
+    // Alpha format is deprecated on OpenGL 3+
+    if (gl3Support)
+        return GL_R8;
+#endif
+    return GL_ALPHA;
+}</pre></code>
+</details>
+
+
 
 ---
 
