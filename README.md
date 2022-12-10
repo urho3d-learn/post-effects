@@ -128,6 +128,37 @@ void HandleUpdate(StringHash eventType, VariantMap& eventData)
 
 Если параметр `output` отсутствует, то очищается вьюпорт. Иногда вы можете захотеть намеренно опустить очистку, например если вам нужен прозрачный фон вьюпорта.
 
+## Команда scenepass
+
+Это те самые проходы рендера, которые были упомянуты в [прошлом уроке](https://github.com/urho3d-learn/materials).
+
+[MyForward.xml](demo/MyData/RenderPaths/MyForward.xml):
+```
+<renderpath>
+    ...
+    <command type="scenepass" tag="WallHack" pass="visiblemask" output="visiblemask" />
+    <command type="scenepass" tag="WallHack" pass="fullmask" output="fullmask" />
+    ...
+</renderpath>
+```
+
+Тут добавляются два прохода. Чтобы проходы были выполнены, они должны иметься также в [технике](demo/MyData/Techniques/DiffNormalWallHack.xml), которую использует [материал](demo/MyData/Materials/Mutant.xml) нашего персонажа:
+
+[Techniques/DiffNormalWallHack.xml](demo/MyData/Techniques/DiffNormalWallHack.xml):
+
+```
+<technique ...>
+    ...
+    <pass name="visiblemask" vs="Mask" ps="Mask" depthwrite="false" depthtest="equal"  psexcludes="PACKEDNORMAL" />
+    <pass name="fullmask" vs="Mask" ps="Mask" depthwrite="false" depthtest="always" psexcludes="PACKEDNORMAL" />
+</technique>
+```
+
+Напомню, что объявление проходов в рендерпасе определяет `порядок` этих проходов, а проходы в технике определяют конкретные `шейдеры`, которые будут использоваться. В данном случае это минимально возможный шейдер [Mask](demo/MyData/Shaders/GLSL/Mask.glsl), выводящий белый пиксель.
+
+К моменту проходов `visiblemask` и `fullmask` буфер глубины уже заполнен. Нам не нужно туда ничего писать, а только использовать его. Поэтому у обоих проходов параметр `depthwrite` выставлен в `false`. Однако параметр `depthtest` различен. При значении `depthtest="always"` буфер глубины игнорируется, и рисуется полная маска персонажа. При значении `depthtest="equal"` тест глубины будет пройден, только когда значение в Z-буфере совпадает с глубиной выводимой геометрии, то есть когда та же самая геометрия рендерится повторно.
+
+
 ---
 
 *Старая версия демки: <https://github.com/1vanK/Urho3DHabrahabr06>.*
