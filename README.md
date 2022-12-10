@@ -158,6 +158,22 @@ void HandleUpdate(StringHash eventType, VariantMap& eventData)
 
 К моменту проходов `visiblemask` и `fullmask` буфер глубины уже заполнен. Нам не нужно туда ничего писать, а только использовать его. Поэтому у обоих проходов параметр `depthwrite` выставлен в `false`. Однако параметр `depthtest` различен. При значении `depthtest="always"` буфер глубины игнорируется, и рисуется полная маска персонажа. При значении `depthtest="equal"` тест глубины будет пройден, только когда значение в Z-буфере совпадает с глубиной выводимой геометрии, то есть когда та же самая геометрия рендерится повторно.
 
+## Команда quad
+
+Именно эта команда и выводит закрывающий экран прямоугольный полигон, предназначенный для реализации постэффектов (так называемый screen quad).
+
+[RenderPaths/MyForward.xml](demo/MyData/RenderPaths/MyForward.xml):
+```
+<renderpath>
+    ...
+    <command type="quad" tag="WallHack" vs="WallHack" ps="WallHack" output="viewport">
+        <texture unit="diffuse" name="viewport" />
+        <texture unit="normal" name="fullmask" />
+        <texture unit="specular" name="visiblemask" />
+    </command>
+</renderpath>
+```
+
 
 ---
 
