@@ -182,7 +182,7 @@ void HandleUpdate(StringHash eventType, VariantMap& eventData)
 
 Шейдер [WallHack](demo/MyData/Shaders/GLSL/WallHack.glsl) очень прост.
 
-1) Получаем цвет текселя отрендеренной сцены (напомню, что мы в [рендерпасе](demo/MyData/RenderPaths/MyForward.xml) передали рендер сцены через текстурный юнит diffuse):
+1\) Получаем цвет текселя отрендеренной сцены (напомню, что мы в [рендерпасе](demo/MyData/RenderPaths/MyForward.xml) передали рендер сцены через текстурный юнит diffuse):
 
 [GLSL/WallHack.glsl](demo/MyData/Shaders/GLSL/WallHack.glsl):
 
@@ -194,7 +194,7 @@ void PS()
 }
 ```
 
-2) Получаем обе маски:
+2\) Получаем обе маски:
 
 
 [GLSL/WallHack.glsl](demo/MyData/Shaders/GLSL/WallHack.glsl):
@@ -231,7 +231,7 @@ void PS()
 
 Если ваше оборудование поддерживает OpenGL 3, то по умолчанию используется эта версия. В целях тестирования вы можете заставить движок использовать OpenGL 2 с помощью параметра командной строки `-gl2`.
 
-3) И наконец все три текстуры комбинируются:
+3\) И наконец все три текстуры комбинируются:
 
 [GLSL/WallHack.glsl](demo/MyData/Shaders/GLSL/WallHack.glsl):
 
